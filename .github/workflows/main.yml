@@ -1,10 +1,31 @@
-- name: Setup .NET
-  uses: actions/setup-dotnet@v4
-  with:
-    dotnet-version: '8.0.x'
+name: Build Android APK
 
-- name: Install Android Workload
-  run: dotnet workload install android --skip-sign-check
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main", "master" ]
 
-- name: Build APK
-  run: dotnet build -c Release -f net8.0-android
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install Android Workload
+        run: dotnet workload install android --skip-sign-check
+
+      - name: Build APK
+        run: dotnet build -c Release -f net8.0-android
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: HalaqaAttendance-apk
+          path: "**/*.apk"
