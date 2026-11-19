@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+  <application android:allowBackup="true" 
+               android:label="محضر الحلقة التلقائي" 
+               android:supportsRtl="true"
+               android:theme="@android:style/Theme.DeviceDefault.Light.DarkActionBar">
+
+    <!-- خدمة قراءة إشعارات الواتساب في الخلفية -->
+    <service android:name="com.yasser.halaqaattendance.WhatsAppListener"
+             android:label="راصد بطاقات الحضور"
+             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+             android:exported="true">
+      <intent-filter>
+        <action android:name="android.service.notification.NotificationListenerService" />
+      </intent-filter>
+    </service>
+
+  </application>
+</manifest>
